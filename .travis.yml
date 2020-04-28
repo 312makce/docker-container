@@ -1,5 +1,5 @@
 sudo: required
-cache: bundler
+
 services:
   - docker
 
@@ -8,7 +8,11 @@ before_install:
 
 script:
   - docker run 312makce/docker-container npm run test -- --coverage
-
+cache:
+  directories:
+    - $HOME/.cache/pip
+before_cache:
+  - rm -f $HOME/.cache/pip/log/debug.log
 deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
